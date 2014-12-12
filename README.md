@@ -35,7 +35,7 @@ Now, run ``gclient sync`` to pull down this repository and its dependencies.
 The toolchain for building Tau is not managed with gclient. Instead, you'll need
 to build and install the toolchain using the
 [instructions in the toolchain directory](build/toolchain/gcc/README.md). In the
-future, we would like to use gclient to make the toolchain dependency hermitic.
+future, we would like to use gclient to make the toolchain dependency hermetic.
 
 Building the code
 -----------------
