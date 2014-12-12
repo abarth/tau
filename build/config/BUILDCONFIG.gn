@@ -1,0 +1,44 @@
+# Copyright 2014 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+declare_args() {
+  is_debug = true
+}
+
+# Holds all configs used for making native executables and libraries, to avoid
+# duplication in each target below.
+_native_compiler_configs = [
+  "//build/config/compiler:compiler",
+  "//build/config/compiler:default_include_dirs",
+  "//build/config/compiler:default_warnings",
+]
+
+# Optimizations and debug checking.
+if (is_debug) {
+  _native_compiler_configs += [
+    "//build/config:debug",
+    "//build/config/compiler:no_optimize",
+    "//build/config/compiler:symbols",
+  ]
+} else {
+  _native_compiler_configs += [
+    "//build/config:release",
+    "//build/config/compiler:optimize",
+    "//build/config/compiler:no_symbols",
+  ]
+}
+
+set_defaults("executable") {
+  configs = _native_compiler_configs
+}
+
+set_defaults("static_library") {
+  configs = _native_compiler_configs
+}
+
+set_defaults("source_set") {
+  configs = _native_compiler_configs
+}
+
+set_default_toolchain("//build/toolchain/gcc")

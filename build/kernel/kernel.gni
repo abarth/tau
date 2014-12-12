@@ -1,0 +1,36 @@
+# Copyright 2014 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+template("kernel") {
+  linker_script = rebase_path("//build/kernel/kernel.ld", root_build_dir)
+
+  kernel_name = target_name
+  elf_target_name = kernel_name + "_elf"
+
+  executable(elf_target_name) {
+    output_name = kernel_name + ".elf"
+    sources = invoker.sources
+
+    configs += [
+      "//build/config:bare_metal",
+    ]
+
+    ldflags = [
+      "-T$linker_script",
+    ]
+
+    deps = invoker.deps
+  }
+
+  action(target_name) {
+    inputs = [ "$root_build_dir/${kernel_name}.elf" ]
+    outputs = [ "$root_build_dir/${kernel_name}.img" ]
+
+    script = "//build/kernel/extract_image.py"
+    args = rebase_path(inputs, root_build_dir) +
+           rebase_path(outputs, root_build_dir)
+
+    deps = [ ":$elf_target_name" ]
+  }
+}
