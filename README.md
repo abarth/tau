@@ -7,7 +7,7 @@ a mix of ARM assembly and C++11 but does not link against libc or libc++.
 
 Currently, Tau supports a limited number of the peripherals available on the Pi.
 Over time, we'd like to add support for more peripherals, including the USB and
-video controls.
+video controllers.
 
 Getting started
 ---------------
