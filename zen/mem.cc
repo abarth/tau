@@ -5,7 +5,7 @@
 #include "zen/mem.h"
 
 void* memset(void* start, int c, size_t n) {
-  unsigned char value = c & 0xF;
+  unsigned char value = c & 0xFF;
   unsigned char* current = static_cast<unsigned char*>(start);
   unsigned char* end = current + n;
   while (current != end)
